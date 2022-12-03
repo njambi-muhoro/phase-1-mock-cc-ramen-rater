@@ -23,11 +23,22 @@ header {
 
 #ramen-menu {
   display: flex;
+  gap: 1rem;
   overflow-x: auto;
   margin: 1rem 0;
   max-width: calc(100vw - 2rem);
 }
 
+.imgs {
+  width: 100%;
+}
+
+.ramenName {
+  opacity: 0;
+}
+.menus {
+  opacity: 0;
+}
 #ramen-menu img {
   flex: 0 1 auto;
   height: 150px;
@@ -38,12 +49,15 @@ header {
 #ramen-menu img:last-child {
   margin-right: 0;
 }
-
-#ramen-detail {
+.menus {
+  display: flex;
+  flex-direction: column;
+}
+#ramendetail {
   position: relative;
 }
 
-.detail-image {
+.detailImage {
   height: 350px;
 }
 
@@ -100,3 +114,4 @@ form h4 {
   color: white;
   background-color: black;
 }
+
