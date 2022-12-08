@@ -28,8 +28,8 @@ header {
   margin: 1rem 0;
   max-width: calc(100vw - 2rem);
 }
-  
-.ramMenu{
+
+.ramMenu {
   /* border: 2px solid red; */
   display: flex;
 }
@@ -43,16 +43,15 @@ header {
 }
 .menus {
   display: none;
-  
 }
-.resRating{
+.resRating {
   display: none;
 }
-.resComment{
+.resComment {
   display: none;
 }
-.restaurantName{
-display: none;
+.restaurantName {
+  display: none;
 }
 #ramen-menu img {
   flex: 0 1 auto;
@@ -129,4 +128,3 @@ form h4 {
   color: white;
   background-color: black;
 }
-

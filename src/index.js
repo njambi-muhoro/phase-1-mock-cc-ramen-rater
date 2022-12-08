@@ -5,7 +5,7 @@ function ourRamenMenu() {
     })
     .then((ramens) => {
       // we create our new elements where various ramen info will go to
-      console.log(ramens)
+      console.log(ramens);
       const ourImageFiles = document.getElementById("ramen-menu");
       for (let myRamenImage of ramens) {
         // new folder of files and assigning values to it
@@ -31,7 +31,6 @@ function ourRamenMenu() {
         //console.log(newp1);
         newDiv.appendChild(newp1);
 
-       
         const newp2 = document.createElement("p");
         newp2.classList.add("restaurantName");
         newp2.innerHTML = `${myRamenImage.restaurant}`;
@@ -53,34 +52,34 @@ function ourRamenMenu() {
         // we iterate over the elements clicked
         let newIm = "";
         const clickableDivs = document.querySelectorAll(".ramMenu");
-     
+
         for (const clickableDiv of clickableDivs) {
           clickableDiv.addEventListener("click", (e) => {
             //same as resetting
             newIm = "";
-     
+
             //we iterate one by one
             const singleImage = clickableDiv.querySelector(".imgs");
             const scrImage = singleImage.src;
-           // console.log(scrImage);
-     
+            // console.log(scrImage);
+
             const ramensName =
               clickableDiv.querySelector(".ramenName").innerText;
             // console.log(ramensName);
-     
+
             const myRestaurantName =
               clickableDiv.querySelector(".restaurantName").innerText;
             //console.log(myRestaurantName);
-     
+
             const ourRating =
               clickableDiv.querySelector(".resRating").innerText;
             //console.log(ourRating);
-     
+
             const resComment =
               clickableDiv.querySelector(".resComment").innerText;
             //console.log(resComment);
-     
-            console.log(newIm)
+
+            console.log(newIm);
             newIm = {
               scrImage,
               ramensName,
@@ -103,56 +102,43 @@ function ourRamenMenu() {
           }
         }
       }
+    });
+
+  // POST HTTP METHOD and posting our new data
+  let addForm = document.querySelector("#newramenFeedBack");
+  addForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let name = document.getElementById("newName").value;
+    let restaurant = document.getElementById("new-restaurant").value;
+    let image = document.getElementById("newImage").value;
+    let rating = document.getElementById("newRating").value;
+    let comment = document.getElementById("newComment").value;
+    // when you type data into the form the info will be printed according to this console below
+    console.log(name + comment + restaurant + image + rating + image);
+
+    fetch("http://localhost:3700/ramens", {
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        restaurant: restaurant,
+        image: image,
+        rating: rating,
+        comment: comment,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
     })
- 
+      .then((res) => {
+        res.json();
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  });
 
-    // POST HTTP METHOD and posting our new data
-    let addForm = document.querySelector("#newramenFeedBack");
-    addForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      let name = document.getElementById("newName").value;
-      let restaurant = document.getElementById("new-restaurant").value;
-      let image = document.getElementById("newImage").value;
-      let rating = document.getElementById("newRating").value;
-      let comment = document.getElementById("newComment").value;
-      // when you type data into the form the info will be printed according to this console below
-      console.log( name + comment + restaurant + image + rating + image )
-
-        fetch("http://localhost:3700/ramens",{
-            method: "POST",
-            body: JSON.stringify({
-                  name: name,
-                  restaurant: restaurant,
-                  image: image,
-                  rating: rating,
-                  comment: comment
-            }),
-            headers: {
-              "Content-type": "application/json"
-            }
-
-        })
-        .then((res)=>{
-          res.json();
-        })
-        .then((response)=>{
-            console.log(response)
-        })
-
-
-
-
-
-
-
-    })
-
-
-
-
-    // const singleImage =document.querySelector("")
-  }
-   
+  // const singleImage =document.querySelector("")
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   ourRamenMenu();
