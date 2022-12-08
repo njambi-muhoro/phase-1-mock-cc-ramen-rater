@@ -28,16 +28,31 @@ header {
   margin: 1rem 0;
   max-width: calc(100vw - 2rem);
 }
-
+  
+.ramMenu{
+  /* border: 2px solid red; */
+  display: flex;
+}
 .imgs {
   width: 100%;
+  /* border: 2px solid black; */
 }
 
 .ramenName {
-  opacity: 0;
+  display: none;
 }
 .menus {
-  opacity: 0;
+  display: none;
+  
+}
+.resRating{
+  display: none;
+}
+.resComment{
+  display: none;
+}
+.restaurantName{
+display: none;
 }
 #ramen-menu img {
   flex: 0 1 auto;

@@ -5,7 +5,7 @@ function ourRamenMenu() {
     })
     .then((ramens) => {
       // we create our new elements where various ramen info will go to
-
+      console.log(ramens)
       const ourImageFiles = document.getElementById("ramen-menu");
       for (let myRamenImage of ramens) {
         // new folder of files and assigning values to it
@@ -53,33 +53,34 @@ function ourRamenMenu() {
         // we iterate over the elements clicked
         let newIm = "";
         const clickableDivs = document.querySelectorAll(".ramMenu");
-
+     
         for (const clickableDiv of clickableDivs) {
           clickableDiv.addEventListener("click", (e) => {
             //same as resetting
             newIm = "";
-
+     
             //we iterate one by one
             const singleImage = clickableDiv.querySelector(".imgs");
             const scrImage = singleImage.src;
            // console.log(scrImage);
-
+     
             const ramensName =
               clickableDiv.querySelector(".ramenName").innerText;
             // console.log(ramensName);
-
+     
             const myRestaurantName =
               clickableDiv.querySelector(".restaurantName").innerText;
             //console.log(myRestaurantName);
-
+     
             const ourRating =
               clickableDiv.querySelector(".resRating").innerText;
             //console.log(ourRating);
-
+     
             const resComment =
               clickableDiv.querySelector(".resComment").innerText;
             //console.log(resComment);
-
+     
+            console.log(newIm)
             newIm = {
               scrImage,
               ramensName,
@@ -101,119 +102,58 @@ function ourRamenMenu() {
             document.querySelector(".detailImage").src = newIm.scrImage;
           }
         }
-
-        // const singleImage =document.querySelector("")
       }
-      
-      let ramenName = document.querySelector("#newName")
-      console.log(ramenName);
-      
-      let newRamenImage =document.querySelector("#newImage");
-      console.log(newRamenImage);
-      
-      let newRamenRating =document.querySelector("#newRating");
-      console.log(newRamenRating);
+    })
+ 
 
-     let  newRamenRes = document.querySelector("#new-restaurant")
-      console.log(newRamenRes);
+    // POST HTTP METHOD and posting our new data
+    let addForm = document.querySelector("#newramenFeedBack");
+    addForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      let name = document.getElementById("newName").value;
+      let restaurant = document.getElementById("new-restaurant").value;
+      let image = document.getElementById("newImage").value;
+      let rating = document.getElementById("newRating").value;
+      let comment = document.getElementById("newComment").value;
+      // when you type data into the form the info will be printed according to this console below
+      console.log( name + comment + restaurant + image + rating + image )
 
-      let newReviewComments =document.querySelector("#newComment");
-      console.log(newReviewComments);
-      
-      const myForm = document.querySelector("#newramenFeedBack")
-      console.log(myForm)
-      myForm.addEventListener('submit', (e)=>{
-          (e).preventDefault()
-          
-         // this is where we create new elements to take in the values of out inputs
-         const ourImageFiles = document.getElementById("ramen-menu");
-         const largeDiv = document.createElement("div");
-         largeDiv.classList.add("ramMenu");
-         ourImageFiles.appendChild(largeDiv);
- 
-         const ourImages = document.createElement("img");
-         ourImages.classList.add("imgs");
-         ourImages.src = newRamenImage.value;
-         
-         largeDiv.appendChild(ourImages);
-         
- 
-         const newDiv = document.createElement("div");
-         newDiv.classList.add("menus");
-         largeDiv.appendChild(newDiv);
- 
-         const newp1 = document.createElement("p");
-         newp1.classList.add("ramenName");
-         newp1.innerHTML = ramenName.value;
-         newDiv.appendChild(newp1);
-         
- 
-         
-         const newp2 = document.createElement("p");
-         newp2.classList.add("restaurantName");
-         newp2.innerHTML = newRamenRes.value;
-         newDiv.appendChild(newp2);
-        
- 
-         const newp3 = document.createElement("p");
-         newp3.classList.add("resRating");
-         newp3.innerHTML = newRamenRating.value;
-         newDiv.appendChild(newp3);
-       
- 
-         const newp4 = document.createElement("p");
-         newp4.classList.add("resComment");
-         newp4.innerHTML = newReviewComments.value;
-         newDiv.appendChild(newp4);
-         
-         myForm.reset();
+        fetch("http://localhost:3700/ramens",{
+            method: "POST",
+            body: JSON.stringify({
+                  name: name,
+                  restaurant: restaurant,
+                  image: image,
+                  rating: rating,
+                  comment: comment
+            }),
+            headers: {
+              "Content-type": "application/json"
+            }
+
         })
-            
-           
-      
+        .then((res)=>{
+          res.json();
+        })
+        .then((response)=>{
+            console.log(response)
+        })
 
-      
-      // function newElements(){
-      //   //we write the new elements where our inputs will go to...of which they are to go to our DIV ramen-menu
-        
-      //   const ourImages = document.createElement("img");
-      //   ourImages.classList.add("imgs");
-      //   ourImages.src = newForm.newRamenImage;
-        
-      //   largeDiv.appendChild(ourImages);
-        
 
-      //   const newDiv = document.createElement("div");
-      //   newDiv.classList.add("menus");
-      //   largeDiv.appendChild(newDiv);
 
-      //   const newp1 = document.createElement("p");
-      //   newp1.classList.add("ramenName");
-      //   newp1.innerHTML =newForm.name;
-        
-      //   newDiv.appendChild(newp1);
 
-        
-      //   const newp2 = document.createElement("p");
-      //   newp2.classList.add("restaurantName");
-      //   newp2.innerHTML =newForm.restaurantName ;
-        
-      //   newDiv.appendChild(newp2);
 
-      //   const newp3 = document.createElement("p");
-      //   newp3.classList.add("resRating");
-      //   newp3.innerHTML =newForm.newRamenRating;
-      //   newDiv.appendChild(newp3);
-        
 
-      //   const newp4 = document.createElement("p");
-      //   newp4.classList.add("resComment");
-      //   newp4.innerHTML = newForm.newComments;
-      //   newDiv.appendChild(newp4);
 
-      // }
-    });
-}
+    })
+
+
+
+
+    // const singleImage =document.querySelector("")
+  }
+   
+
 document.addEventListener("DOMContentLoaded", function () {
   ourRamenMenu();
 });
